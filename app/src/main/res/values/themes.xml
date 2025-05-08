@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.WorldSkillsTest" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.WorldSkillsTest.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item> <!-- Фон сплэша -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo</item> <!-- Лого -->
+        <item name="windowSplashScreenAnimationDuration">1000</item> <!-- Длительность анимации -->
+        <item name="postSplashScreenTheme">@style/Theme.WorldSkillsTest</item> <!-- Тема приложения -->
+    </style>
+</resources>

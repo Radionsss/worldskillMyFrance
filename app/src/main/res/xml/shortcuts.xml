@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Ярлык для списка событий -->
+    <shortcut
+        android:shortcutId="events_shortcut"
+        android:enabled="true"
+        android:icon="@drawable/ic_events"
+        android:shortcutShortLabel="@string/shortcut_events"
+        android:shortcutLongLabel="@string/shortcut_events"
+        android:shortcutDisabledMessage="@string/shortcut_unavailable">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="workwork.company.worldskillstest"
+            android:targetClass="workwork.company.worldskillstest.presenter.eventDetails.EventDetailsScreenKt" />
+    </shortcut>
+
+    <!-- Ярлык для списка билетов -->
+    <shortcut
+        android:shortcutId="tickets_shortcut"
+        android:enabled="true"
+        android:icon="@drawable/ic_tickets"
+        android:shortcutShortLabel="@string/shortcut_tickets"
+        android:shortcutLongLabel="@string/shortcut_tickets"
+        android:shortcutDisabledMessage="@string/shortcut_unavailable">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="workwork.company.worldskillstest"
+            android:targetClass="workwork.company.worldskillstest.presenter.ticketDetails.TicketDetailsScreenKt" />
+    </shortcut>
+
+    <!-- Ярлык для записей -->
+    <shortcut
+        android:shortcutId="records_shortcut"
+        android:enabled="true"
+        android:icon="@drawable/ic_records"
+        android:shortcutShortLabel="@string/shortcut_records"
+        android:shortcutLongLabel="@string/shortcut_records"
+        android:shortcutDisabledMessage="@string/shortcut_unavailable">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="workwork.company.worldskillstest"
+            android:targetClass="workwork.company.worldskillstest.presenter.audio.AudioScreenKt" />
+    </shortcut>
+
+</shortcuts>

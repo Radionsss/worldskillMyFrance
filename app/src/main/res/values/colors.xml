@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="main_color_items">#237FFE</color>
+    <color name="background_light_night_reverse">#FFFFFF</color>
+
+    <color name="main_color_default">#F3F4F5</color>
+
+    <color name="text_light_night">#2C2C38</color>
+    <color name="in_active_icon">#E1E1E1</color>
+    <color name="for_text_on_icons">#A4A4BA</color>
+    <color name="main_blue">#237FFE</color>
+    <color name="background_for_inactive_icons">#F8F8F8</color>
+    <color name="shadow_light">#BDBDBD</color>
+    <color name="date_picker">#FFFFFF</color>
+
+</resources>

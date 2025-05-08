@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">WorldSkillsTest</string>
+    <string name="cancel">Отмена</string>
+    <string name="pick_date">Выберите дату</string>
+    <string name="shortcut_events">События</string>
+    <string name="shortcut_tickets">Билеты</string>
+    <string name="shortcut_records">Записи</string>
+    <string name="shortcut_unavailable">Функция недоступна</string>
+</resources>
