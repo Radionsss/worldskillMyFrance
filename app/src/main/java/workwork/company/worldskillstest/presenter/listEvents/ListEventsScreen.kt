@@ -14,34 +14,30 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import workwork.company.worldskillstest.presenter.commons.components.BackButtonWithTitle
-import workwork.company.worldskillstest.core.Constant.PADDING_HORIZONTAL
 import workwork.company.worldskillstest.R
+import workwork.company.worldskillstest.core.Constant.PADDING_HORIZONTAL
 import workwork.company.worldskillstest.domain.models.local.LocalEvent
+import workwork.company.worldskillstest.presenter.commons.components.BackButtonWithTitle
 import workwork.company.worldskillstest.presenter.commons.components.BoxWithShadow
 import workwork.company.worldskillstest.presenter.commons.components.TabRowCustom
 import workwork.company.worldskillstest.presenter.listEvents.data.EventFilter
@@ -52,9 +48,6 @@ fun ListEventsScreen(
     viewModel: ListEventsScreenViewModel,
     onClickDetailsEvent: (LocalEvent) -> Unit,
 ) {
-    var name by remember { mutableStateOf("") }
-    // val addStudentState = viewModel.addStudentStateFlow.collectAsState().value
-    val context = LocalContext.current
     val tabItems = listOf(
         "All",
         "Unread",
@@ -96,10 +89,9 @@ fun ListEventsScreen(
             Spacer(modifier = Modifier.height(12.dp))
             HorizontalPager(
                 state = pagerState,
-                userScrollEnabled = false, // Отключаем скролл через палец
+                userScrollEnabled = false,
                 modifier = Modifier
                     .fillMaxWidth()
-                // .weight(1f)
             ) { index ->
                 when (index) {
                     0 -> {
@@ -135,14 +127,13 @@ fun ListEventsScreen(
 @Composable
 private fun LazyColumnGroups(
     events: List<LocalEvent>,
-    filter: EventFilter, // Используем enum
-    onClick: (LocalEvent) -> Unit // Колбэк для обработки нажатия
+    filter: EventFilter,
+    onClick: (LocalEvent) -> Unit
 ) {
-    // Фильтрация событий в зависимости от выбранного фильтра
     val filteredEvents = when (filter) {
         EventFilter.READ -> events.filter { it.isRead }
         EventFilter.UNREAD -> events.filter { !it.isRead }
-        EventFilter.ALL -> events // Все события
+        EventFilter.ALL -> events
     }
 
     LazyColumn(
@@ -154,7 +145,7 @@ private fun LazyColumnGroups(
                 title = event.title,
                 text = event.description,
                 isUnread = !event.isRead,
-                imageRes = event.imageRes, // Замените на свой ресурс
+                imageRes = event.imageRes,
                 modifier = Modifier.padding(
                     end = PADDING_HORIZONTAL.dp,
                     start = PADDING_HORIZONTAL.dp
@@ -174,7 +165,7 @@ private fun EventListItem(
     isUnread: Boolean,
     imageRes: String,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit // Колбэк для обработки нажатия
+    onClick: () -> Unit
 ) {
     BoxWithShadow(modifier=modifier,content = {
         Row(
@@ -184,30 +175,26 @@ private fun EventListItem(
                 .clip(RoundedCornerShape(16.dp))
                 .height(100.dp)
 
-                .clickable { onClick() } // Обрабатываем нажатие
+                .clickable { onClick() }
         ) {
-            // Изображение
-
             AsyncImage(
-                model = imageRes, // URL или ресурс изображения
+                model = imageRes,
                 contentDescription = null,
-                contentScale = ContentScale.Crop, // Изображение растягивается, чтобы заполнить доступное пространство
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .fillMaxHeight() // Высота изображения равна высоте родительского контейнера
-                    .weight(0.3f) // 30% ширины
-                    .clip(RoundedCornerShape(topStart = 16.dp, bottomStart = 16.dp)) // Округление углов
+                    .fillMaxHeight()
+                    .weight(0.3f)
+                    .clip(RoundedCornerShape(topStart = 16.dp, bottomStart = 16.dp))
             )
 
             Spacer(modifier = Modifier.width(8.dp))
-
-            // Текстовые элементы
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = title,
                     fontFamily = mainFont,
                     fontSize = 14.sp,
-                    maxLines = 1, // Ограничение на 2 строки
-                    overflow = TextOverflow.Ellipsis ,// Добавляет "..." при превышении длины
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis ,
                     fontWeight = FontWeight.SemiBold,
                     color = colorResource(R.color.main_blue),
                     modifier = Modifier
@@ -224,8 +211,8 @@ private fun EventListItem(
                     color = colorResource(R.color.text_light_night),
                     modifier = Modifier
                         .fillMaxWidth(),
-                    maxLines = 2, // Ограничение на 2 строки
-                    overflow = TextOverflow.Ellipsis // Добавляет "..." при превышении длины
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Row(Modifier.fillMaxWidth()) {

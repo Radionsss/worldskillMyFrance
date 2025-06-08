@@ -1,23 +1,24 @@
 package workwork.company.worldskillstest.presenter.ticketDetails
 
-import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Picture
 import android.net.Uri
-import android.os.Build
 import android.os.Environment
-import android.provider.MediaStore
 import android.util.Log
-import android.view.View
-import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.Color
@@ -25,14 +26,10 @@ import androidx.compose.ui.graphics.drawscope.draw
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.*
-import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.viewinterop.AndroidView
-import androidx.core.view.drawToBitmap
-import coil.compose.rememberAsyncImagePainter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -49,8 +46,6 @@ fun TicketDetailsScreen(
     onClickExit: () -> Unit,
 ) {
     val context = LocalContext.current
-    val picture = remember { Picture() }
-    var isImageLoaded by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -61,8 +56,6 @@ fun TicketDetailsScreen(
         TicketDetailsContent(
             ticketData, Modifier
                 .drawWithCache {
-                    // Example that shows how to redirect rendering to an Android Picture and then
-                    // draw the picture into the original destination
                     val width = this.size.width.toInt()
                     val height = this.size.height.toInt()
                     onDrawWithContent {
@@ -149,20 +142,16 @@ fun TicketDetailsContent(ticketData: TicketEntity?, modifier: Modifier) {
 private fun createBitmapFromPicture(picture: Picture): Bitmap {
     val width = picture.width
     val height = picture.height
-    Log.d("fefwfwfwefwf", "picture.width: ${picture.width}")
-    Log.d("fefwfwfwefwf", "picture.width: ${picture.height}")
+
     if (width <= 0 || height <= 0) {
         throw IllegalArgumentException("Invalid Picture dimensions: width=$width, height=$height")
     }
-
-    // ✅ Создаем программный (Software) Bitmap
     val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
 
-    // ✅ Рисуем только если есть контент
     val canvas = android.graphics.Canvas(bitmap)
     try {
         canvas.drawColor(android.graphics.Color.WHITE)
-        canvas.drawPicture(picture) // 🔥 Теперь `Picture` всегда будет Software
+        canvas.drawPicture(picture)
     } catch (e: IllegalArgumentException) {
         e.printStackTrace()
     }
@@ -189,7 +178,6 @@ private fun File.writeBitmap(bitmap: Bitmap, format: Bitmap.CompressFormat, qual
 }
 
 
-// ✅ Реализуем функцию scanFilePath (чтобы добавить в галерею)
 private fun scanFilePath(context: Context, filePath: String): Uri? {
     val file = File(filePath)
     val uri = Uri.fromFile(file)

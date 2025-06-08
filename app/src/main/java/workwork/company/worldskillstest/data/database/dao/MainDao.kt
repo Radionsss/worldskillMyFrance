@@ -40,8 +40,6 @@ interface MainDao {
     @Query("SELECT * FROM tickets ORDER BY orderIndex ASC")
     fun getAllTickets(): kotlinx.coroutines.flow.Flow<List<TicketEntity>>
 
-    //    @Query("SELECT * FROM tickets")
-//    fun getAllTickets(): Flow<List<TicketEntity>> // Используем Flow для потокового получения данных
     @Transaction
     suspend fun updateAll(tickets: List<TicketEntity>) {
         tickets.forEachIndexed { index, ticket ->

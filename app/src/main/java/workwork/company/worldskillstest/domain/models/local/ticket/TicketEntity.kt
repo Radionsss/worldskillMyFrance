@@ -1,6 +1,5 @@
 package workwork.company.worldskillstest.domain.models.local.ticket
 
-import android.net.Uri
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 

@@ -10,7 +10,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -20,7 +19,7 @@ import workwork.company.worldskillstest.ui.theme.mainFont
 
 @Composable
 fun ButtonCustom(
-    text: String, // Текст для кнопки "Отмена"
+    text: String,
     onClick: () -> Unit,
 ) {
     Card(
@@ -34,21 +33,21 @@ fun ButtonCustom(
         content = {
             Button(
                 onClick = onClick,
-                modifier = Modifier.fillMaxWidth(), // Равномерное распределение пространства
+                modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
-                    contentColor = colorResource(R.color.white), // Цвет текста
-                    containerColor = colorResource(R.color.main_blue)  // Фон кнопки
+                    contentColor = colorResource(R.color.white),
+                    containerColor = colorResource(R.color.main_blue)
                 ),
-                elevation = null, // Убираем тень
-                shape = RoundedCornerShape(16.dp), // Закругление углов
-                contentPadding = PaddingValues(12.dp) // Внутренний отступ
+                elevation = null,
+                shape = RoundedCornerShape(16.dp),
+                contentPadding = PaddingValues(12.dp)
             ) {
                 Text(
                     text = text,
                     fontFamily = mainFont,
                     fontWeight = FontWeight.Normal,
                     fontSize = 15.sp,
-                    color = colorResource(R.color.white) // Цвет текста
+                    color = colorResource(R.color.white)
                 )
             }
         })

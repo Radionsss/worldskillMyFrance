@@ -12,7 +12,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -27,8 +26,6 @@ fun BackButtonWithTitle(
     text: String,
     onExitClick: (() -> Unit)? = null,
 ) {
-    val density = LocalDensity.current // Доступ к плотности экрана
-
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
@@ -39,9 +36,9 @@ fun BackButtonWithTitle(
         if (onExitClick != null) {
             IconButton(onClick = onExitClick) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_back), // Замените на ваш ресурс иконки
+                    painter = painterResource(id = R.drawable.ic_back),
                     contentDescription = "Назад",
-                    tint = colorResource(R.color.for_text_on_icons), // Цвет стрелки
+                    tint = colorResource(R.color.for_text_on_icons),
                     modifier = Modifier
                         .size(20.dp)
                 )

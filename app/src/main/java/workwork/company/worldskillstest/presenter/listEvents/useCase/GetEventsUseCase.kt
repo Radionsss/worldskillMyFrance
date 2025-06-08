@@ -14,14 +14,13 @@ class GetEventsUseCase @Inject constructor(
     fun getEvents(): Flow<List<LocalEvent>> = flow {
         mainRepository.getLocalEvents().collect { localEvents ->
             if (localEvents.isEmpty()) {
-                // Загружаем из API, если база данных пуста
                 val eventsFromApi = mainRepository.fetchEvents()
                 val localEventsToSave = eventsFromApi.map { event ->
                     event.toLocalEvent(isRead = false, viewCount = 0)
                 }
                 mainRepository.saveLocalEvents(localEventsToSave)
             }
-            emitAll(mainRepository.getLocalEvents()) // Возвращаем Flow из базы
+            emitAll(mainRepository.getLocalEvents())
         }
     }
 

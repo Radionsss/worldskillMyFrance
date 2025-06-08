@@ -20,7 +20,7 @@ import java.util.Calendar
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DialogTimePicker(
-    onConfirm: (String) -> Unit, // Колбэк с возвращением времени в формате "HH:mm"
+    onConfirm: (String) -> Unit,
     onCloseDialog: () -> Unit,
 ) {
     val currentTime = Calendar.getInstance()
@@ -34,9 +34,10 @@ fun DialogTimePicker(
 
         Column(
             modifier = Modifier
-                .background(color = androidx.compose.ui.graphics.Color.White) // Белый фон
-                .padding(16.dp) // Отступы внутри диалога
-        ) {            TimePicker(
+                .background(color = androidx.compose.ui.graphics.Color.White)
+                .padding(16.dp)
+        ) {
+            TimePicker(
                 state = timePickerState,
             )
             Row {
@@ -45,10 +46,9 @@ fun DialogTimePicker(
                 }
                 Spacer(Modifier.width(8.dp))
                 Button(onClick = {
-                    // Форматируем выбранное время
                     val formattedTime =
                         String.format("%02d:%02d", timePickerState.hour, timePickerState.minute)
-                    onConfirm(formattedTime) // Передаем форматированное время в колбэк
+                    onConfirm(formattedTime)
                     onCloseDialog()
                 }) {
                     Text("Confirm selection")

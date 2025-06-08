@@ -44,13 +44,11 @@ fun BasicInputField(
     val interactionSource = remember { MutableInteractionSource() }
     val isFocused = interactionSource.collectIsFocusedAsState().value
 
-    // Анимация цвета рамки
     val borderColor by animateColorAsState(
         targetValue = if (isFocused) colorResource(R.color.main_blue) else Color.Transparent,
         label = ""
     )
 
-    // Анимация цвета фона
     val backgroundColor by animateColorAsState(
         targetValue = if (isFocused) colorResource(R.color.white) else colorResource(R.color.background_for_inactive_icons),
         label = ""
@@ -110,7 +108,7 @@ fun BasicInputField(
 
 @Composable
 fun BasicInputField(
-    value: String, placeholder: String, onClick: () -> Unit = {} // Обработчик нажатия
+    value: String, placeholder: String, onClick: () -> Unit = {}
 ) {
     Card(modifier = Modifier.shadow(
             elevation = 25.dp,
@@ -133,7 +131,7 @@ fun BasicInputField(
                     .padding(horizontal = 16.dp, vertical = 12.dp)
                     .clickable(indication = null,
                         interactionSource = remember { MutableInteractionSource() }) {
-                        onClick() // Обработка нажатия
+                        onClick()
                     }) {
                 Text(
                     text = if (value.isNotEmpty()) value else placeholder,

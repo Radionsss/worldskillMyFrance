@@ -63,8 +63,6 @@ fun CreateTicketScreen(
     viewModel: CreateTicketScreenViewModel,
     onExitClick: () -> Unit,
 ) {
-    var name by remember { mutableStateOf("") }
-    // val addStudentState = viewModel.addStudentStateFlow.collectAsState().value
     val context = LocalContext.current
     val tabItems = listOf(
         "Opening ceremonies",
@@ -84,7 +82,7 @@ fun CreateTicketScreen(
             try {
                 val inputStream: InputStream? = context.contentResolver.openInputStream(it)
                 BitmapFactory.decodeStream(inputStream)
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 null
             }
         }
@@ -184,8 +182,8 @@ fun CreateTicketScreen(
             Spacer(modifier = Modifier.height(16.dp))
             Spacer(modifier = Modifier.weight(1f))
             ButtonCustom("Create") {
-                val formattedDateTime = "$date $time" // Объединяем дату и время в нужном формате
-                val uriString: String = imageUri.toString() // Преобразуем Uri в строку
+                val formattedDateTime = "$date $time"
+                val uriString: String = imageUri.toString()
                 viewModel.createTicket(
                     TicketEntity(
                         ticketType = selectedFilter,
@@ -206,10 +204,10 @@ fun CreateTicketScreen(
 }
 
 fun generateSeat(): String {
-    val letter = listOf("A", "B", "C").random() // Случайный символ из "A/B/C"
-    val number1 = Random.nextInt(1, 11) // Случайное число от 1 до 10
-    val number2 = Random.nextInt(1, 11) // Случайное число от 1 до 10
-    val number3 = Random.nextInt(1, 11) // Случайное число от 1 до 10
+    val letter = listOf("A", "B", "C").random()
+    val number1 = Random.nextInt(1, 11)
+    val number2 = Random.nextInt(1, 11)
+    val number3 = Random.nextInt(1, 11)
 
     return "$letter$number1 Row$number2 Column$number3"
 }
@@ -218,7 +216,6 @@ fun generateSeat(): String {
 fun ImageTicket(bitmap: Bitmap?, launcher: ManagedActivityResultLauncher<Intent, ActivityResult>) {
     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
         if (bitmap != null) {
-            // Если есть фото, отображаем его
             Image(
                 bitmap = bitmap.asImageBitmap(),
                 contentDescription = "Profile Image",
@@ -233,10 +230,9 @@ fun ImageTicket(bitmap: Bitmap?, launcher: ManagedActivityResultLauncher<Intent,
                         launcher.launch(intent)
                     }
                     .background(colorResource(R.color.main_blue).copy(0.1f)),
-                contentScale = ContentScale.Crop // Центрируем и обрезаем изображение
+                contentScale = ContentScale.Crop
             )
         } else {
-            // Если фото нет, отображаем иконку
             Box(
                 modifier = Modifier
                     .height(250.dp)
@@ -254,7 +250,7 @@ fun ImageTicket(bitmap: Bitmap?, launcher: ManagedActivityResultLauncher<Intent,
                 Icon(
                     painter = painterResource(id = R.drawable.ic_not_have_image),
                     contentDescription = null,
-                    modifier = Modifier.size(120.dp), // Размер иконки
+                    modifier = Modifier.size(120.dp),
                     tint = colorResource(R.color.main_blue).copy(alpha = 0.4f)
                 )
             }
@@ -264,6 +260,6 @@ fun ImageTicket(bitmap: Bitmap?, launcher: ManagedActivityResultLauncher<Intent,
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun formatDate(date: LocalDate): String {
-    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd") // Формат ГГГГ-ММ-ДД
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
     return date.format(formatter)
 }

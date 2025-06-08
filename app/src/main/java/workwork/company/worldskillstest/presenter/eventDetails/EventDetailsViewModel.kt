@@ -7,14 +7,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import workwork.company.worldskillstest.domain.MainRepository
 import workwork.company.worldskillstest.domain.models.local.LocalEvent
 import workwork.company.worldskillstest.presenter.listEvents.useCase.GetEventsUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class EventDetailsViewModel @Inject constructor(
-    private val mainRepository: MainRepository,
     private val getEventsUseCase: GetEventsUseCase,
     ) : ViewModel() {
 
@@ -28,15 +26,5 @@ class EventDetailsViewModel @Inject constructor(
             }
         }
     }
-     fun incrementViewCount(eventId: String) {
-         viewModelScope.launch {
-             mainRepository.incrementViewCount(eventId)
-         }
-    }
 
-     fun markAsRead(eventId: String) {
-         viewModelScope.launch {
-             mainRepository.markAsRead(eventId)
-         }
-    }
 }

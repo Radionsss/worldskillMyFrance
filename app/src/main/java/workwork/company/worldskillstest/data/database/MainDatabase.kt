@@ -17,7 +17,7 @@ class MainDatabase internal constructor(private val database: MainRoomDatabase) 
 }
 
 @Database(entities = [LocalEvent::class, TicketEntity::class, AudioEntity::class,], version = 1, exportSchema = false)
-@TypeConverters( PhotosConverter::class,) // Register both converters
+@TypeConverters( PhotosConverter::class,)
 internal abstract class MainRoomDatabase : RoomDatabase() {
     abstract fun mainDao(): MainDao
 }

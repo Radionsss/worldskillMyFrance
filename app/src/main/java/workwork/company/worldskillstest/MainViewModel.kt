@@ -19,8 +19,8 @@ class MainViewModel @Inject constructor(
     val startDestination: MutableState<Route> = _startDestination
     init {
         viewModelScope.launch {
-            delay(1000) // Задержка в 1 секунду
-            setDestination(Route.EventsListScreen) // Устанавливаем новый экран (замените Route.HomeScreen на нужный маршрут)
+            delay(1000)
+            setDestination(Route.EventsListScreen)
         }
     }
 

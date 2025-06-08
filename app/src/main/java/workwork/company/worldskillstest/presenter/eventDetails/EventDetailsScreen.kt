@@ -24,7 +24,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -44,8 +43,6 @@ fun EventDetailsScreen(
     localEventData: LocalEvent?,
 ) {
     var selectedPhoto by remember { mutableStateOf("") }
-    // val addStudentState = viewModel.addStudentStateFlow.collectAsState().value
-    val context = LocalContext.current
     val imageDialog = remember { mutableStateOf(false) }
 
 
@@ -56,7 +53,7 @@ fun EventDetailsScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState()) // Добавляем вертикальную прокрутку
+                .verticalScroll(rememberScrollState())
                 .padding(top = 20.dp, start = 16.dp, end = 16.dp)
                 .background(color = colorResource(R.color.main_color_default)),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -64,14 +61,13 @@ fun EventDetailsScreen(
             BackButtonWithTitle(localEventData?.title?:"",onClickExit)
             Spacer(modifier = Modifier.height(16.dp))
             Row(
-                verticalAlignment = Alignment.CenterVertically // Выравнивание по центру
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                // Текст
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_eye), // Замените на свою иконку
+                    painter = painterResource(id = R.drawable.ic_eye),
                     contentDescription = "Views Icon",
                     tint = colorResource(R.color.main_blue),
-                    modifier = Modifier.size(16.dp).padding(end = 4.dp) // Размер иконки
+                    modifier = Modifier.size(16.dp).padding(end = 4.dp)
                 )
                 Text(
                     text = localEventData?.viewCount.toString(),
@@ -79,11 +75,8 @@ fun EventDetailsScreen(
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Normal,
                     color = colorResource(R.color.main_blue),
-                    modifier = Modifier.padding(end = 4.dp) // Отступ справа от текста
+                    modifier = Modifier.padding(end = 4.dp)
                 )
-
-                // Иконка просмотров
-
                 Text(
                     text ="Count view",
                     fontFamily = mainFont,
@@ -128,7 +121,7 @@ private fun ImageRow(images: List<String>, onImageClick: (String) -> Unit) {
                     .height(100.dp)
                     .weight(1f)
                     .padding(4.dp)
-                    .clickable { onImageClick(imageUrl) } // Вызываем колбэк с URL изображения
+                    .clickable { onImageClick(imageUrl) }
             )
         }
     }

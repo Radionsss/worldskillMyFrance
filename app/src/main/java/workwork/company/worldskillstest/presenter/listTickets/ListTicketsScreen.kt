@@ -1,7 +1,5 @@
 package workwork.company.worldskillstest.presenter.listTickets
 
-import android.util.Log
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -15,16 +13,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -32,31 +20,36 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.draw.shadow
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import workwork.company.worldskillstest.presenter.commons.components.BackButtonWithTitle
-import workwork.company.worldskillstest.core.Constant.PADDING_HORIZONTAL
-import workwork.company.worldskillstest.R
-import workwork.company.worldskillstest.domain.models.local.ticket.TicketEntity
-import workwork.company.worldskillstest.presenter.commons.components.BoxWithShadow
-import workwork.company.worldskillstest.presenter.commons.components.TabRowCustom
-import workwork.company.worldskillstest.domain.models.local.ticket.TicketFilter
-import workwork.company.worldskillstest.ui.theme.mainFont
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
 import org.burnoutcrew.reorderable.ReorderableItem
 import org.burnoutcrew.reorderable.detectReorderAfterLongPress
 import org.burnoutcrew.reorderable.rememberReorderableLazyListState
 import org.burnoutcrew.reorderable.reorderable
+import workwork.company.worldskillstest.R
+import workwork.company.worldskillstest.core.Constant.PADDING_HORIZONTAL
+import workwork.company.worldskillstest.domain.models.local.ticket.TicketEntity
+import workwork.company.worldskillstest.domain.models.local.ticket.TicketFilter
+import workwork.company.worldskillstest.presenter.commons.components.BackButtonWithTitle
+import workwork.company.worldskillstest.presenter.commons.components.BoxWithShadow
 import workwork.company.worldskillstest.presenter.commons.components.ButtonCustom
+import workwork.company.worldskillstest.presenter.commons.components.TabRowCustom
+import workwork.company.worldskillstest.ui.theme.mainFont
 
 @Composable
 fun ListTicketsScreen(
@@ -64,9 +57,7 @@ fun ListTicketsScreen(
     onClickDetailsTicket: (TicketEntity) -> Unit,
     onClickCreateTicket: () -> Unit,
 ) {
-    var name by remember { mutableStateOf("") }
-    // val addStudentState = viewModel.addStudentStateFlow.collectAsState().value
-    val context = LocalContext.current
+
     val tabItems = listOf(
         "Opening",
         "Closing",
@@ -109,10 +100,9 @@ fun ListTicketsScreen(
             Spacer(modifier = Modifier.height(12.dp))
             HorizontalPager(
                 state = pagerState,
-                userScrollEnabled = false, // Отключаем скролл через палец
+                userScrollEnabled = false,
                 modifier = Modifier
                     .fillMaxWidth()
-                // .weight(1f)
             ) { index ->
                 when (index) {
                     0 -> {
@@ -151,16 +141,13 @@ private fun LazyColumnTickets(
 ) {
     val filteredTickets = tickets.filter { it.ticketType == filter }
     val reorderState = rememberReorderableLazyListState(onMove = { from, to ->
-        // Создаем новый список с обновленным порядком
         if (filteredTickets.isNotEmpty()) {
             val updatedList = filteredTickets.toMutableList().apply {
                 add(to.index, removeAt(from.index))
             }
-            Log.d("LazyColumnTickets", "Updated List: $updatedList")
-            onReorder(updatedList) // Передаем обновленный список через callback
+            onReorder(updatedList)
         }
     })
-    Log.d("fefewwefwf", "Up $filteredTickets")
 
     if (filteredTickets.isEmpty()) {
         Box(
@@ -185,11 +172,8 @@ private fun LazyColumnTickets(
         ) {
             items(filteredTickets, key = { it.id }) { ticket ->
                 ReorderableItem(reorderState, key = ticket.id) { isDragging ->
-                    val elevation = animateDpAsState(if (isDragging) 8.dp else 0.dp)
                     SwipeableActionsBox(
                         modifier = Modifier
-                         //   .shadow(elevation.value)
-                           // .background(MaterialTheme.colorScheme.surface)
                         ,
                         swipeThreshold = 200.dp,
                         startActions = listOf(
@@ -228,7 +212,7 @@ fun EventListItem(
     name: String,
     seat: String,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit // Колбэк для обработки нажатия
+    onClick: () -> Unit
 ) {
     BoxWithShadow(modifier = modifier, content = {
         Row(
@@ -238,19 +222,18 @@ fun EventListItem(
                 .clip(RoundedCornerShape(16.dp))
                 .height(100.dp)
 
-                .clickable { onClick() } // Обрабатываем нажатие
+                .clickable { onClick() }
         ) {
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            // Текстовые элементы
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = name,
                     fontFamily = mainFont,
                     fontSize = 14.sp,
-                    maxLines = 1, // Ограничение на 2 строки
-                    overflow = TextOverflow.Ellipsis,// Добавляет "..." при превышении длины
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                     fontWeight = FontWeight.SemiBold,
                     color = colorResource(R.color.main_blue),
                     modifier = Modifier
@@ -267,8 +250,8 @@ fun EventListItem(
                     color = colorResource(R.color.text_light_night),
                     modifier = Modifier
                         .fillMaxWidth(),
-                    maxLines = 2, // Ограничение на 2 строки
-                    overflow = TextOverflow.Ellipsis // Добавляет "..." при превышении длины
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
                 )
 
             }

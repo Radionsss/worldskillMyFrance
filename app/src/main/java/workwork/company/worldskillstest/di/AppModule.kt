@@ -1,9 +1,9 @@
-package coffee.company.lintu.di
+package workwork.company.worldskillstest.di
 
-import coffee.company.lintu.di.secondary.DatabaseModule
+import workwork.company.worldskillstest.di.secondary.DatabaseModule
 import workwork.company.worldskillstest.di.secondary.NetworkModule
-import coffee.company.lintu.di.secondary.RepositoryModule
-import coffee.company.lintu.di.secondary.SharedPreferencesManagerModule
+import workwork.company.worldskillstest.di.secondary.RepositoryModule
+import workwork.company.worldskillstest.di.secondary.SharedPreferencesManagerModule
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent

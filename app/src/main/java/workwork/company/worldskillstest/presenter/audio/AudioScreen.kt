@@ -1,16 +1,13 @@
 package workwork.company.worldskillstest.presenter.audio
 
-import android.media.MediaPlayer
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -24,14 +21,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import workwork.company.worldskillstest.R
 import workwork.company.worldskillstest.presenter.audio.playback.AndroidAudioPlayer
 import workwork.company.worldskillstest.presenter.audio.record.AndroidAudioRecorder
@@ -50,7 +41,7 @@ fun AudioScreen(viewModel: AudioViewModel) {
     var audioFile by remember { mutableStateOf<File?>(null) }
     var currentlyPlayingId by remember { mutableStateOf<String?>(null) }
     var isRecording by remember { mutableStateOf(false) }
-    var isAudioAvailable by remember { mutableStateOf(false) } // Флаг наличия записанного аудио
+    var isAudioAvailable by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -74,7 +65,7 @@ fun AudioScreen(viewModel: AudioViewModel) {
         Button(onClick = {
             recorder.value.stop()
             isRecording = false
-            isAudioAvailable = audioFile?.exists() == true // Проверяем, записался ли файл
+            isAudioAvailable = audioFile?.exists() == true
         }, enabled = isRecording) {
             Text(text = "Stop recording")
         }
@@ -87,7 +78,7 @@ fun AudioScreen(viewModel: AudioViewModel) {
             } else {
                 Toast.makeText(context, "Файл не найден", Toast.LENGTH_SHORT).show()
             }
-        }, enabled = isAudioAvailable && !isRecording) { // Отключаем кнопку, если аудио не записано
+        }, enabled = isAudioAvailable && !isRecording) {
             Text(text = "Play")
         }
 
@@ -98,7 +89,7 @@ fun AudioScreen(viewModel: AudioViewModel) {
             } else {
                 Toast.makeText(context, "Нет записи для отправки", Toast.LENGTH_SHORT).show()
             }
-        }, enabled = isAudioAvailable && !isRecording) { // Отключаем кнопку, если аудио не записано
+        }, enabled = isAudioAvailable && !isRecording) {
             Text(text = "Submit")
         }
 
@@ -126,7 +117,7 @@ fun AudioScreen(viewModel: AudioViewModel) {
                                 }
                             }
                         },
-                        enabled = !isRecording // Отключаем кнопку Play во время записи
+                        enabled = !isRecording
                     ) {
                         Icon(
                             painter = if (currentlyPlayingId == audio.id.toString())

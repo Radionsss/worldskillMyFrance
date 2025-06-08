@@ -1,4 +1,4 @@
-package coffee.company.lintu.di.secondary
+package workwork.company.worldskillstest.di.secondary
 
 import workwork.company.worldskillstest.data.MainRepositoryImpl
 import workwork.company.worldskillstest.domain.MainRepository

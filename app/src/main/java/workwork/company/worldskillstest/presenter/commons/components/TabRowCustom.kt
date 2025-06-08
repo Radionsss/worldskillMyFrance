@@ -14,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -33,15 +32,14 @@ fun TabRowCustom(
     colorNotActiveLine: Int = R.color.in_active_icon,
     colorNotActiveText: Color = colorResource( R.color.for_text_on_icons),
 ) {
-    var currentIndex by remember { mutableStateOf(selectedIndex) }
-    val density = LocalDensity.current
-    var boxWidthPx by remember { mutableStateOf(0f) } // Переменная для ширины Box
-    val tabWidthFraction = 1f / tabItems.size // Доля ширины для каждого таба
+    var currentIndex by remember { mutableIntStateOf(selectedIndex) }
+    var boxWidthPx by remember { mutableFloatStateOf(0f) }
+    val tabWidthFraction = 1f / tabItems.size
     val progress by animateFloatAsState(
         targetValue = currentIndex.toFloat(),
         animationSpec = tween(durationMillis = 500)
     )
-    val offsetX = progress * boxWidthPx * tabWidthFraction // Смещение индикатора
+    val offsetX = progress * boxWidthPx * tabWidthFraction
 
     Column(
         modifier = Modifier
@@ -49,7 +47,6 @@ fun TabRowCustom(
             .padding(horizontal = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Таб-элементы
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
@@ -63,8 +60,8 @@ fun TabRowCustom(
                     modifier = Modifier
                         .weight(1f)
                         .clickable(
-                            interactionSource = remember { MutableInteractionSource() }, // Отключение ripple
-                            indication = null // Убираем анимацию нажатия
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = null
                         ) {
                             currentIndex = index
                             onTabSelected(index)
@@ -85,14 +82,13 @@ fun TabRowCustom(
             }
         }
         Spacer(modifier = Modifier.height(8.dp))
-        // Индикатор
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(1.dp)
                 .background(colorResource(colorNotActiveLine))
                 .onGloballyPositioned { coordinates ->
-                    boxWidthPx = coordinates.size.width.toFloat() // Ширина Box в пикселях
+                    boxWidthPx = coordinates.size.width.toFloat()
                 }
         ) {
             Box(
@@ -105,40 +101,3 @@ fun TabRowCustom(
         }
     }
 }
-
-//TabRow(
-//                modifier = Modifier.padding(horizontal = PADDING_HORIZONTAL.dp),
-//                containerColor = colorResource(R.color.main_color_default),
-//                selectedTabIndex = selectedTabIndex,
-//                indicator = { tabPositions ->
-//                    SecondaryIndicator(
-//                        height = 1.dp,
-//                        modifier = Modifier
-//                            .tabIndicatorOffset(tabPositions[selectedTabIndex])
-//                            .fillMaxWidth(),
-//                        color = colorResource(R.color.main_blue)// Устанавливаем цвет полоски
-//                    )
-//                }
-//            ) {
-//                tabItems.forEachIndexed { index, item ->
-//                    Tab(
-//                        selected = index == selectedTabIndex,
-//                        onClick = {
-//                            selectedTabIndex = index
-//                        },
-//                        text = {
-//                            Text(
-//                                fontFamily = mainFont,
-//                                color = if (index == selectedTabIndex) colorResource(R.color.main_blue) else colorResource(
-//                                    R.color.for_text_on_icons
-//                                ),
-//                                fontSize = 16.sp,
-//                                fontWeight = if (index == selectedTabIndex) FontWeight.Bold else FontWeight.Normal,
-//                                text = item
-//                            )
-//                        },
-//                        icon = {
-//                        }
-//                    )
-//                }
-//            }

@@ -11,11 +11,11 @@ class AndroidAudioPlayer(
     private var player: MediaPlayer? = null
 
     override fun playFile(file: File, onCompletion: () -> Unit) {
-        stop() // Останавливаем предыдущее аудио перед началом нового
+        stop()
         MediaPlayer.create(context, file.toUri()).apply {
             player = this
             setOnCompletionListener {
-                onCompletion() // Вызываем колбэк при завершении
+                onCompletion()
                 stop()
             }
             start()

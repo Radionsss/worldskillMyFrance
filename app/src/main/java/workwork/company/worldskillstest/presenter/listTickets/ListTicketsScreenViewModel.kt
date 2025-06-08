@@ -1,6 +1,5 @@
 package workwork.company.worldskillstest.presenter.listTickets
 
-import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +16,6 @@ import javax.inject.Inject
 @HiltViewModel
 class ListTicketsScreenViewModel @Inject constructor(
     private val mainRepository: MainRepository,
-    private val getEventsUseCase: GetEventsUseCase,
 ) : ViewModel() {
 
     private val _tickets = MutableStateFlow<List<TicketEntity>>(emptyList())
@@ -56,13 +54,7 @@ class ListTicketsScreenViewModel @Inject constructor(
     }
     fun updateTicketsOrder(updatedTickets: List<TicketEntity>) {
         viewModelScope.launch {
-          //  _tickets.value = updatedTickets
-           mainRepository.updateTicketsOrder(updatedTickets) // Опционально обновляем в базе данных
+           mainRepository.updateTicketsOrder(updatedTickets)
         }
     }
-    //    fun updateAllTicketsOrder(tickets: List<TicketEntity>) {
-//         viewModelScope.launch {
-//             mainRepository.updateAllTicketsOrder(tickets)
-//         }
-//    }
 }

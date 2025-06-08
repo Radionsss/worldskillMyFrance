@@ -1,4 +1,4 @@
-package com.table.navigation
+package workwork.company.worldskillstest.navigation
 
 import android.net.Uri
 import android.os.Build
@@ -16,7 +16,6 @@ import com.google.gson.JsonDeserializer
 import com.google.gson.JsonSerializer
 import workwork.company.worldskillstest.domain.models.local.LocalEvent
 import workwork.company.worldskillstest.domain.models.local.ticket.TicketEntity
-import workwork.company.worldskillstest.navigation.Route
 import workwork.company.worldskillstest.presenter.createTicket.CreateTicketScreen
 import workwork.company.worldskillstest.presenter.createTicket.CreateTicketScreenViewModel
 import workwork.company.worldskillstest.presenter.eventDetails.EventDetailsScreen

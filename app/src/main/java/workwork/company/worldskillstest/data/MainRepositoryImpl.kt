@@ -23,33 +23,28 @@ class MainRepositoryImpl @Inject constructor(
 
     private val mainDao: MainDao = database.mainDao
 
-    // 1. Получение событий из API (JSON)
     override suspend fun fetchEvents(): List<Event> {
-        val inputStream = context.resources.openRawResource(R.raw.events_data) // Правильный способ открыть файл из res/raw
+        val inputStream = context.resources.openRawResource(R.raw.events_data)
         val jsonString = inputStream.bufferedReader().use { it.readText() }
         return Json.decodeFromString(jsonString)
     }
 
-    // 2. Получение всех локальных событий из базы
     override fun getLocalEvents(): Flow<List<LocalEvent>> {
-        return mainDao.getAllEvents() // Room автоматически возвращает Flow
+        return mainDao.getAllEvents()
     }
 
     override fun getAllAudios(): Flow<List<AudioEntity>> {
         return mainDao.getAllAudios()
     }
 
-    // 3. Сохранение списка локальных событий в базу данных
     override suspend fun saveLocalEvents(events: List<LocalEvent>) {
         mainDao.insertEvents(events)
     }
 
-    // 4. Увеличение `viewCount` для определенного события
     override suspend fun incrementViewCount(eventId: String) {
         mainDao.incrementViewCount(eventId)
     }
 
-    // 5. Пометка события как прочитанного (`isRead = true`)
     override suspend fun markAsRead(eventId: String) {
         mainDao.markAsRead(eventId)
     }
@@ -60,7 +55,7 @@ class MainRepositoryImpl @Inject constructor(
         mainDao.insertTickets(tickets)
     }
     override fun getAllTickets(): Flow<List<TicketEntity>> {
-        return mainDao.getAllTickets() // Возвращаем Flow из DAO
+        return mainDao.getAllTickets()
     }
 
     override suspend fun getTicketById(id: Int): TicketEntity? {

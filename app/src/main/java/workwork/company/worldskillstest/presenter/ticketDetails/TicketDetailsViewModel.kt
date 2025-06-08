@@ -11,7 +11,6 @@ import javax.inject.Inject
 @HiltViewModel
 class TicketDetailsViewModel @Inject constructor(
     private val mainRepository: MainRepository,
-    private val getEventsUseCase: GetEventsUseCase,
     ) : ViewModel() {
 
      fun markAsRead(eventId: String) {

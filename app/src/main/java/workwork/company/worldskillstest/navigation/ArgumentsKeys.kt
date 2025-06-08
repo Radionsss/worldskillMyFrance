@@ -1,4 +1,4 @@
-package com.table.navigation
+package workwork.company.worldskillstest.navigation
 
 object ArgumentsKeys {
     const val CLASS_ARGUMENT_KEY="CLASS_ARGUMENT_KEY"

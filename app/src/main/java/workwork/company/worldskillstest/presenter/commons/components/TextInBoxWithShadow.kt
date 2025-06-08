@@ -49,7 +49,7 @@ fun TextInBoxWithShadow(
             Box(
                 modifier = Modifier
                     .clip(RoundedCornerShape(16.dp))
-                    .background(Color.White)
+                    .background(White)
                     .padding(horizontal = 16.dp, vertical = 10.dp),
                 contentAlignment = Alignment.Center
             ) {

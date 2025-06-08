@@ -19,8 +19,8 @@ import workwork.company.worldskillstest.presenter.commons.components.TextInBoxWi
 @Composable
 fun SelectTicketFilter(
     modifier: Modifier = Modifier,
-    selectedFilter: TicketFilter?, // Выбранный фильтр (может быть null)
-    onSelectionChange: (TicketFilter) -> Unit // Коллбэк для изменения выбора
+    selectedFilter: TicketFilter?,
+    onSelectionChange: (TicketFilter) -> Unit
 ) {
     val options = listOf(
         "Opening" to TicketFilter.OPEN,
@@ -42,7 +42,7 @@ fun SelectTicketFilter(
                 text = text,
                 isSelected = isSelected,
                 onClick = {
-                    onSelectionChange(filter) // Вызываем коллбэк с выбранным фильтром
+                    onSelectionChange(filter)
                 },
                 selectedColor = selectedColor,
                 unSelectedColor = unSelectedColor

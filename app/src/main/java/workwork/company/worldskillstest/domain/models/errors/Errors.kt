@@ -1,4 +1,4 @@
-package coffee.company.lintu.domain.models.errors
+package workwork.company.worldskillstest.domain.models.errors
 
 data class Errors(
     val code: Int,

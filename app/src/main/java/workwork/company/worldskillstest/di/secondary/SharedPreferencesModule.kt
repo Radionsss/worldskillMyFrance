@@ -1,7 +1,7 @@
-package coffee.company.lintu.di.secondary
+package workwork.company.worldskillstest.di.secondary
 
 import android.content.Context
-import coffee.company.lintu.domain.SharedPreferencesManager
+import workwork.company.worldskillstest.domain.SharedPreferencesManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
